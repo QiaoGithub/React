@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script>
+        var root = document.getElementById('root')
+
+
+        class Conponment {
+            setState(newState) {
+                this.state = {
+                    ...this.state,
+                    ...newState
+                }
+            }
+        }
+
+
+        class Button extends Conponment {
+            constructor() {
+                super()
+                this.state = {
+                    like: false
+                }
+            }
+
+            render() {
+                const state = this.state
+                return `
+                <button type="button" style="color:${state.like ? "red" : "black"}">
+                        ${state.like ? "已赞" : "喜欢"}
+                    </button>
+                `
+            }
+        }
+
+        class Title extends Conponment {
+            constructor() {
+                super()
+                this.state = {
+                    text: '这是一个标题'
+                }
+            }
+
+            render() {
+                return `
+                    <h1>${this.state.text}</h1>
+                `
+            }
+        }
+
+        class Wrap {
+            constructor() {
+
+            }
+            render() {
+                return `
+                    ${new Button().render()}
+                    ${new Button().render()}
+                    ${new Button().render()}
+                    ${new Button().render()}
+                    ${new Title().render()}
+                `
+            }
+        }
+
+        root.innerHTML = new Wrap().render()
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!-- 
+
+    输入框输入长度的限制
+ -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="input">
+    <p id="error">字数不能超过10个字</p>
+    <script>
+        var input = document.getElementById('input')
+        var errInput = document.getElementById('error')
+
+        var state = {
+            value: '',
+            error: false
+        }
+
+        var setState = function (newState) {
+            state = {
+                ...state,
+                ...newState
+            }
+            render()
+        }
+
+        var render = function () {
+            input.value = state.value
+            if (state.error) {
+                errInput.style.display = 'block'
+            } else {
+                errInput.style.display = 'none'
+            }
+        }
+
+        var handelInput = function (value) {
+            if (value.length < 10) {
+                setState({
+                    value: value
+                })
+            } else {
+                setState({
+                    error: true
+                })
+            }
+        }
+
+        input.addEventListener('input', function () {
+            handelInput(this.value)
+        })
+
+        render()
+    </script>
+</body>
+
+</html>
